@@ -23,7 +23,7 @@
             <th>Telefone</th>
             <th>Nascimento</th>
             <th>Data</th>
-            <th></th>
+            <th>Ações</th>
         </thead>
         <tbody>
             <?php if($num_clientes == 0) { ?>
@@ -32,15 +32,25 @@
                 </tr>
             <?php } else { 
                 while($cliente = $query_clientes->fetch_assoc()) {
+                    $telefone = "Não Informado.";
+                    if (!empty($cliente['telefone'])) {
+                        $ddd = substr($cliente['telefone'], 0, 2);
+                        $parte1 = substr($cliente['telefone'], 2, 5);
+                        $parte2 = substr($cliente['telefone'], 7);
+                        $telefone = "($ddd) $parte1-$parte2";
+                    }
                 ?>
                 <tr>
                     <td><?= $cliente['id'] ?></td>
                     <td><?= $cliente['nome'] ?></td>
                     <td><?= $cliente['email'] ?></td>
-                    <td><?= $cliente['telefone'] ?></td>
+                    <td><?= $telefone ?></td>
                     <td><?= $cliente['nascimento'] ?></td>
                     <td><?= $cliente['data'] ?></td>
-                    <td></td>
+                    <td>
+                        <a href="">Editar</a> | 
+                        <a href="">Deletar</a>
+                    </td>
                 </tr>
             <?php }} ?>
         </tbody>
