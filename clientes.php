@@ -21,8 +21,8 @@
             <th>Nome</th>
             <th>E-mail</th>
             <th>Telefone</th>
-            <th>Nascimento</th>
-            <th>Data</th>
+            <th>Data de Nascimento</th>
+            <th>Data de Cadastro</th>
             <th>Ações</th>
         </thead>
         <tbody>
@@ -39,17 +39,24 @@
                         $parte2 = substr($cliente['telefone'], 7);
                         $telefone = "($ddd) $parte1-$parte2";
                     }
+                    $nascimento = "Não Informada.";
+                    if (!empty($cliente['nascimento'])) {
+                        $tmp = explode('-', $cliente['nascimento']);
+                        $tmp = array_reverse($tmp);
+                        $nascimento = implode('/', $tmp);
+                    }
+                    $data_cadastro = date("d/m/Y - H:i", strtotime($cliente['data']));
                 ?>
                 <tr>
                     <td><?= $cliente['id'] ?></td>
                     <td><?= $cliente['nome'] ?></td>
                     <td><?= $cliente['email'] ?></td>
                     <td><?= $telefone ?></td>
-                    <td><?= $cliente['nascimento'] ?></td>
-                    <td><?= $cliente['data'] ?></td>
+                    <td><?= $nascimento ?></td>
+                    <td><?= $data_cadastro ?></td>
                     <td>
-                        <a href="">Editar</a> | 
-                        <a href="">Deletar</a>
+                        <a href="editar_cliente.php?id=<?= $cliente['id'] ?>">Editar</a> | 
+                        <a href="deletar_cliente.php?id=<?= $cliente['id'] ?>">Deletar</a>
                     </td>
                 </tr>
             <?php }} ?>
